@@ -9,44 +9,27 @@ import static main.Main_class.listFigure;
 
 public class Form extends JFrame implements MouseListener, MouseMotionListener {
 
+    private String[] ComboBoxComponents = {
+            "","Line", "Rectagle", "Square", "Oval", "Circle", "Triangle"
+    };
     private Figure activeFigure = new nothingChoose();
     private int coordX, coordY;
 
-    private JRadioButton
-            Line = new JRadioButton("Line", false),
-            Rectangle = new JRadioButton("Rectagle", false),
-            Square = new JRadioButton("Square", false),
-            Oval = new JRadioButton("Oval", false),
-            Circle = new JRadioButton("Circle",false),
-            Triangle = new JRadioButton("Triangle", false);
+    private JComboBox<String>
+            choiceFigureTypeBox = new JComboBox<>(ComboBoxComponents);
 
     private void addComponentsToForm(){
         setLayout(null);
 
-        //выбор фигуры
-        ButtonGroup typeFigure = new ButtonGroup();
-
-        typeFigure.add(Line);
-        typeFigure.add(Rectangle);
-        typeFigure.add(Square);
-        typeFigure.add(Oval);
-        typeFigure.add(Circle);
-        typeFigure.add(Triangle);
-
         //размещение компонентов
-        int DEFAULT_WIDTH = 120;
-        int DEFAULT_HEIGHT = 30;
-        int DEFAULT_COORDINATE_X = 20;
-        int DEFAULT_COORDINATE_Y = 30;
+        final int DEFAULT_WIDTH = 120;
+        final int DEFAULT_HEIGHT = 30;
+        final int DEFAULT_COORDINATE_X = 20;
+        final int DEFAULT_COORDINATE_Y = 30;
         int SCALE = 1;
 
+        add(choiceFigureTypeBox).setBounds(DEFAULT_COORDINATE_X, DEFAULT_COORDINATE_Y * SCALE,DEFAULT_WIDTH,DEFAULT_HEIGHT);
 
-        add(Line).setBounds(DEFAULT_COORDINATE_X, DEFAULT_COORDINATE_Y * SCALE++, DEFAULT_WIDTH, DEFAULT_HEIGHT);
-        add(Rectangle).setBounds(DEFAULT_COORDINATE_X, DEFAULT_COORDINATE_Y * SCALE++, DEFAULT_WIDTH, DEFAULT_HEIGHT);
-        add(Square).setBounds(DEFAULT_COORDINATE_X, DEFAULT_COORDINATE_Y * SCALE++, DEFAULT_WIDTH, DEFAULT_HEIGHT);
-        add(Oval).setBounds(DEFAULT_COORDINATE_X, DEFAULT_COORDINATE_Y * SCALE++, DEFAULT_WIDTH, DEFAULT_HEIGHT);
-        add(Circle).setBounds(DEFAULT_COORDINATE_X, DEFAULT_COORDINATE_Y * SCALE++, DEFAULT_WIDTH, DEFAULT_HEIGHT);
-        add(Triangle).setBounds(DEFAULT_COORDINATE_X, DEFAULT_COORDINATE_Y * SCALE, DEFAULT_WIDTH, DEFAULT_HEIGHT);
     }
 
     Form() {
@@ -59,20 +42,21 @@ public class Form extends JFrame implements MouseListener, MouseMotionListener {
         // сохранить координаты
         coordX = me.getX();
         coordY = me.getY();
-        if (Line.isSelected()){
-            activeFigure = listFigure.get(0);
-        } else if (Rectangle.isSelected()) {
-            activeFigure = listFigure.get(1);
-        } else if (Square.isSelected()) {
-            activeFigure = listFigure.get(2);
-        } else if (Oval.isSelected()) {
-            activeFigure = listFigure.get(3);
-        } else if (Circle.isSelected()) {
-            activeFigure = listFigure.get(4);
-        } else if (Triangle.isSelected()) {
-            activeFigure = listFigure.get(5);
-        } else {
-            activeFigure = listFigure.get(6);
+        switch (choiceFigureTypeBox.getSelectedIndex()){
+            case 1: activeFigure = listFigure.get(0);
+                    break;
+            case 2: activeFigure = listFigure.get(1);
+                break;
+            case 3: activeFigure = listFigure.get(2);
+                break;
+            case 4: activeFigure = listFigure.get(3);
+                break;
+            case 5: activeFigure = listFigure.get(4);
+                break;
+            case 6: activeFigure = listFigure.get(5);
+                break;
+            case 0: activeFigure = listFigure.get(6);
+                break;
         }
         repaint();
     }
