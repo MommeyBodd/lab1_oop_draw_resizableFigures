@@ -3,11 +3,14 @@ package main;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
-import static main.Figure.arrayCoordinates;
-import static main.Main_class.listFigure;
+import static main.Main_class.arrayCoordinates;
+
 
 public class Form extends JFrame implements MouseListener, MouseMotionListener {
+
+    public static ArrayList<Figure> listOfFigure = new ArrayList<>();
 
     private String[] ComboBoxComponents = {
             "","Line", "Rectagle", "Square", "Oval", "Circle", "Triangle"
@@ -15,8 +18,17 @@ public class Form extends JFrame implements MouseListener, MouseMotionListener {
     private Figure activeFigure = new nothingChoose();
     private int coordX, coordY;
 
+    private JButton buttonClear = new JButton("Очистить"),
+            buttonSerialize = new JButton("Записать"),
+            buttonChange = new JButton("Изменить"),
+            buttonLoad = new JButton("Загрузить");
+
     private JComboBox<String>
             choiceFigureTypeBox = new JComboBox<>(ComboBoxComponents);
+
+    private static int indexToChange = -1;
+    private static boolean flag = true;
+
 
     private void addComponentsToForm(){
         setLayout(null);
@@ -43,32 +55,64 @@ public class Form extends JFrame implements MouseListener, MouseMotionListener {
         coordX = me.getX();
         coordY = me.getY();
         switch (choiceFigureTypeBox.getSelectedIndex()){
-            case 1: activeFigure = listFigure.get(0);
-                    break;
-            case 2: activeFigure = listFigure.get(1);
+            case 1:
+                activeFigure = new Line();
+                repaint();
                 break;
-            case 3: activeFigure = listFigure.get(2);
+            case 2:
+                activeFigure = new Rectangle();
+                repaint();
                 break;
-            case 4: activeFigure = listFigure.get(3);
+            case 3:
+                activeFigure = new Square();
+                repaint();
                 break;
-            case 5: activeFigure = listFigure.get(4);
+            case 4:
+                activeFigure = new Oval();
+                repaint();
                 break;
-            case 6: activeFigure = listFigure.get(5);
+            case 5:
+                activeFigure = new Circle();
+                repaint();
                 break;
-            case 0: activeFigure = listFigure.get(6);
+            case 6:
+                activeFigure = new Triangle();
+                repaint();
+                break;
+            case 0:
+                activeFigure = new nothingChoose();
+
+                repaint();
                 break;
         }
-        repaint();
+
+        flag = true;
     }
 
     public void paint(Graphics g) {
         super.paint(g);
-        activeFigure.paintFigure(g, coordX, coordY);
+        int index = 0;
+
+
+        for (Figure temp : listOfFigure){
+            if (index == indexToChange) {
+                activeFigure = temp;
+                Figure.xStart = temp.getX();
+                Figure.yStart = temp.getY();
+                flag = false;
+            }
+            else {
+                temp.paintFigure(g, temp.getX1(), temp.getY1(), temp.getX(), temp.getY());
+            }
+            index++;
+        }
+
+        activeFigure.paintFigure(g, coordX, coordY, Figure.xStart, Figure.yStart);
     }
 
     public void mousePressed(MouseEvent me) {
-        Figure.setX0(me.getX());
-        Figure.setY0(me.getY());
+        Figure.xStart = me.getX();
+        Figure.yStart = me.getY();
         repaint();
     }
 
@@ -79,6 +123,18 @@ public class Form extends JFrame implements MouseListener, MouseMotionListener {
 
 
     public void mouseReleased(MouseEvent me) {
+        activeFigure.setX(Figure.xStart);
+        activeFigure.setY(Figure.yStart);
+        activeFigure.setX1(me.getX());
+        activeFigure.setY1(me.getY());
+
+        if (flag){
+            listOfFigure.add(activeFigure);
+            //comboBoxFigureNumber.addItem("Shape " + (listOfFigure.size()-1));
+        }
+        indexToChange = -1;
+
+        //activeFigure = new NonChooseFigure();
 
     }
 
