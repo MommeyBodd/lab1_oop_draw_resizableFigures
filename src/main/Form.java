@@ -3,6 +3,7 @@ package main;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
 import java.util.ArrayList;
 
 import static main.Main_class.arrayCoordinates;
@@ -42,12 +43,92 @@ public class Form extends JFrame implements MouseListener, MouseMotionListener {
 
         add(choiceFigureTypeBox).setBounds(DEFAULT_COORDINATE_X, DEFAULT_COORDINATE_Y * SCALE,DEFAULT_WIDTH,DEFAULT_HEIGHT);
 
+        add(buttonSerialize).setBounds(DEFAULT_COORDINATE_X + 150,DEFAULT_COORDINATE_Y,DEFAULT_WIDTH,DEFAULT_HEIGHT);
+        add(buttonChange).setBounds(DEFAULT_COORDINATE_X + 300,DEFAULT_COORDINATE_Y,DEFAULT_WIDTH,DEFAULT_HEIGHT);
+        add(buttonLoad).setBounds(DEFAULT_COORDINATE_X + 450,DEFAULT_COORDINATE_Y,DEFAULT_WIDTH,DEFAULT_HEIGHT);
+        add(buttonClear).setBounds(DEFAULT_COORDINATE_X + 600,DEFAULT_COORDINATE_Y,DEFAULT_WIDTH,DEFAULT_HEIGHT);
+
+
     }
 
     Form() {
         addComponentsToForm();
         addMouseListener(this);
         addMouseMotionListener(this);
+        buttonsAction();
+    }
+    private void buttonsAction(){
+        buttonClear.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listOfFigure.clear();
+                //omboBoxFigureNumber.removeAllItems();
+                repaint();
+                activeFigure = new nothingChoose();
+            }
+        });
+
+        buttonSerialize.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    FileOutputStream fos = new FileOutputStream("D:\\Учёба\\2_курс\\Second_semestr\\laba_1-master\\serializeShapes.txt");
+                    ObjectOutputStream oos = new ObjectOutputStream(fos);
+                    int i = 0;
+                    for (Figure temp : listOfFigure){
+                        oos.writeObject(temp);
+                        i++;
+                    }
+                    oos.flush();
+                    oos.close();
+
+                    //write count if figure
+                    BufferedWriter writer = new BufferedWriter(new FileWriter("D:\\Учёба\\2_курс\\Second_semestr\\laba_1-master\\figureCount.txt"));
+                    writer.write(i+"");
+                    writer.flush();
+                    writer.close();
+                }
+                catch (Exception ee){
+                    ee.printStackTrace();
+                }
+            }
+        });
+
+        buttonLoad.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    BufferedReader reader = new BufferedReader(new FileReader("D:\\Учёба\\2_курс\\Second_semestr\\laba_1-master\\figureCount.txt"));
+                    int figureCount = Integer.parseInt(reader.readLine());
+
+                    reader.close();
+
+                    FileInputStream fis = new FileInputStream("D:\\Учёба\\2_курс\\Second_semestr\\laba_1-master\\serializeShapes.txt");
+                    ObjectInputStream oin = new ObjectInputStream(fis);
+                    for (int i = 0; i < figureCount; i++) {
+                        //comboBoxFigureNumber.addItem("Figure "+ i);
+                        listOfFigure.add((Figure)oin.readObject());
+                    }
+
+                    oin.close();
+                    fis.close();
+
+                    repaint();
+                }
+                catch (Exception ee) {
+                    ee.printStackTrace();
+                }
+            }
+        });
+
+
+        buttonChange.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //indexToChange = comboBoxFigureNumber.getSelectedIndex();
+                repaint();
+            }
+        });
     }
 
     public void mouseDragged(MouseEvent me) {
@@ -57,35 +138,27 @@ public class Form extends JFrame implements MouseListener, MouseMotionListener {
         switch (choiceFigureTypeBox.getSelectedIndex()){
             case 1:
                 activeFigure = new Line();
-                repaint();
                 break;
             case 2:
                 activeFigure = new Rectangle();
-                repaint();
                 break;
             case 3:
                 activeFigure = new Square();
-                repaint();
                 break;
             case 4:
                 activeFigure = new Oval();
-                repaint();
                 break;
             case 5:
                 activeFigure = new Circle();
-                repaint();
                 break;
             case 6:
                 activeFigure = new Triangle();
-                repaint();
                 break;
             case 0:
                 activeFigure = new nothingChoose();
-
-                repaint();
                 break;
         }
-
+        repaint();
         flag = true;
     }
 
@@ -134,7 +207,7 @@ public class Form extends JFrame implements MouseListener, MouseMotionListener {
         }
         indexToChange = -1;
 
-        //activeFigure = new NonChooseFigure();
+        activeFigure = new nothingChoose();
 
     }
 

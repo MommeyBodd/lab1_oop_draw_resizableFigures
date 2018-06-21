@@ -2,17 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="28e42c86-54a0-47e0-b117-44aad1481629" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/Circle.java" afterPath="$PROJECT_DIR$/src/main/Circle.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/Figure.java" afterPath="$PROJECT_DIR$/src/main/Figure.java" />
       <change beforePath="$PROJECT_DIR$/src/main/Form.java" afterPath="$PROJECT_DIR$/src/main/Form.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/Line.java" afterPath="$PROJECT_DIR$/src/main/Line.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/Main_class.java" afterPath="$PROJECT_DIR$/src/main/Main_class.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/Oval.java" afterPath="$PROJECT_DIR$/src/main/Oval.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/Rectangle.java" afterPath="$PROJECT_DIR$/src/main/Rectangle.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/Square.java" afterPath="$PROJECT_DIR$/src/main/Square.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/Triangle.java" afterPath="$PROJECT_DIR$/src/main/Triangle.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/nothingChoose.java" afterPath="$PROJECT_DIR$/src/main/nothingChoose.java" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -39,8 +29,8 @@
       <file leaf-file-name="Form.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/Form.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="284">
-              <caret line="136" column="10" lean-forward="false" selection-start-line="136" selection-start-column="10" selection-end-line="136" selection-end-column="10" />
+            <state relative-caret-position="158">
+              <caret line="54" column="30" lean-forward="true" selection-start-line="54" selection-start-column="30" selection-end-line="54" selection-end-column="30" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -891,8 +881,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/Form.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="136" column="10" lean-forward="false" selection-start-line="136" selection-start-column="10" selection-end-line="136" selection-end-column="10" />
+        <state relative-caret-position="158">
+          <caret line="54" column="30" lean-forward="true" selection-start-line="54" selection-start-column="30" selection-end-line="54" selection-end-column="30" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
